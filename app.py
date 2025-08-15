@@ -75,6 +75,18 @@ async def get_crypto_simple(coins: List[str], vs: List[str]):
     payload = {"data": data, "ts": int(time.time())}
     cache.set(key, payload)
     return payload
+@app.get("/")
+async def root():
+    return {
+        "message": "Welcome to FX+Crypto API",
+        "docs": "/docs",
+        "endpoints": {
+            "health": "/health",
+            "fx_example": "/fx?base=USD&to=NGN&amount=100",
+            "crypto_example": "/crypto?coins=bitcoin,ethereum&vs=usd,ngn",
+            "rates_example": "/rates?base=USD"
+        }
+    }
 
 @app.get("/health")
 async def health():
